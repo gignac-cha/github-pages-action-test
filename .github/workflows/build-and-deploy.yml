@@ -34,5 +34,5 @@ jobs:
       - run: pnpm --recursive build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: page
       - uses: actions/deploy-pages@v4

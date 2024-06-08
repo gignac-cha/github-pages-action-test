@@ -103,7 +103,7 @@ window.addEventListener('load', () => {
 
     canvas
       .circle({ x: 150, y: 50, radius: 50 })
-      .stroke({ color: 'green', width: 10 })
-      .fill({ color: 'lightgreen' });
+      .fill({ color: 'lightgreen' })
+      .stroke({ color: 'green', width: 10 });
   });
 });
