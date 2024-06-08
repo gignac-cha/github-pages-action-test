@@ -38,14 +38,16 @@ class Canvas {
 
   private build(task: () => void) {
     return {
-      stroke: ({ color }: { color: string }) => {
+      stroke: ({ color, width = 1 }: { color: string; width?: number }) => {
         this.context.save();
         this.context.beginPath();
         this.context.strokeStyle = color;
+        this.context.lineWidth = width;
         task();
         this.context.stroke();
         this.context.closePath();
         this.context.restore();
+        return { ...this.build(task) };
       },
       fill: ({ color }: { color: string }) => {
         this.context.save();
@@ -55,6 +57,7 @@ class Canvas {
         this.context.fill();
         this.context.closePath();
         this.context.restore();
+        return { ...this.build(task) };
       },
     };
   }
@@ -76,6 +79,10 @@ class Canvas {
   }) {
     return this.build(() => this.context.rect(x, y, width, height));
   }
+
+  circle({ x, y, radius }: { x: number; y: number; radius: number }) {
+    return this.build(() => this.context.arc(x, y, radius, 0, 2 * Math.PI));
+  }
 }
 
 window.addEventListener('load', () => {
@@ -88,10 +95,15 @@ window.addEventListener('load', () => {
 
     canvas.clear();
 
-    canvas.dot({ x: 50, y: 50, color: 'blue' });
+    canvas.dot({ x: 50, y: 50, color: 'red' });
 
     canvas
       .rectangle({ x: 100, y: 100, width: 100, height: 100 })
-      .stroke({ color: 'red' });
+      .stroke({ color: 'blue' });
+
+    canvas
+      .circle({ x: 150, y: 50, radius: 50 })
+      .stroke({ color: 'green', width: 10 })
+      .fill({ color: 'lightgreen' });
   });
 });
