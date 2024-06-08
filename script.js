@@ -57,6 +57,8 @@ class Canvas {
 }
 window.addEventListener('load', () => {
     const canvas = new Canvas(document.querySelector('#canvas'));
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     requestAnimationFrame(function callback() {
         requestAnimationFrame(callback);
         canvas.clear();
